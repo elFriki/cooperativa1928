@@ -1,0 +1,22 @@
+<ul class="collection">
+    <li class="collection-header">
+      <h5>
+        <i class="material-icons" title="Usuarios">room</i>Calles de la cooperativa
+        <span class="secondary-content">
+          {{#link-to 'calles.new' class='green'}}<i class="material-icons right">add</i>{{/link-to}}
+          <i class="material-icons">room</i>{{calles.length}}
+        </span>
+      </h5>
+    </li>
+</ul>
+
+<ul class="collection">
+{{#each calles as |calle|}}
+<li>
+  {{#link-to 'calles.edit' calle.id}}<i class="material-icons">edit</i>{{/link-to}}
+  <a class="red" {{action 'deleteModel' calle}}><i class="material-icons">delete</i></a>
+  {{calle.name}}
+</li>
+{{/each}}
+</ul>
+{{outlet}}

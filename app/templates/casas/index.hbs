@@ -1,0 +1,28 @@
+<ul class="collection">
+    <li class="collection-header">
+      <h5>
+        <i class="material-icons" title="Usuarios">home</i>Casas de la cooperativa
+        <span class="secondary-content">
+          {{#link-to 'casas.new' class='green'}}<i class="material-icons right">add</i>{{/link-to}}
+          <i class="material-icons">home</i>{{casas.length}}
+        </span>
+      </h5>
+    </li>
+</ul>
+
+<ul class="collection">
+{{#each calles as |calle|}}
+<li>{{calle.name}}
+<ul class="collection">
+{{#each calle.casas as |casa|}}
+<li>
+  {{#link-to 'casas.edit' casa.id}}<i class="material-icons">edit</i>{{/link-to}}
+  <a class="red" {{action 'deleteModel' casa}}><i class="material-icons">delete</i></a>
+  {{casa.numero}}
+</li>
+{{/each}}
+</ul>
+</li>
+{{/each}}
+</ul>
+{{outlet}}

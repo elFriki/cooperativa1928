@@ -1,0 +1,61 @@
+<ul class="collection">
+    <li class="collection-header">
+      <h5>
+        <i class="material-icons" title="Usuario">person</i>
+        {{#if model.name}}
+        {{model.name}} {{model.surname1}} {{model.surname2}}
+        {{else}}
+        Nuevo propietario
+        {{/if}}
+
+        <span class="secondary-content">
+          {{#link-to 'propietarios'}}<i class="material-icons">group</i>{{/link-to}}
+        </span>
+      </h5>
+    </li>
+</ul>
+    <form>
+<p>
+<button type="submit" class='transparent' {{action 'saveModel' model}} title="Guarda los cambios">
+    <i class="material-icons black-text">save</i> 
+</button>
+</p>
+<div class="card card-panel">
+<div class="row">
+    <div class="input-field">
+
+        {{input value=model.name id="name" required="true" type="text" class="validate"}}
+        {{#if model.name}}
+        <label class="active" for="name">Nombre completo</label>
+        {{else}}
+        <label for="name">Nombre completo</label>
+        {{/if}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field">
+        {{input value=model.surname1 id="surname1" required="true" type="text" class="validate"}}
+        {{#if model.surname1}}
+        <label class="active" for="name">Primer apellido</label>
+        {{else}}
+        <label for="name">Primer apellido</label>
+        {{/if}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field">
+        {{input value=model.surname2 id="surname2" required="true" type="text" class="validate"}}
+        {{#if model.surname2}}
+        <label class="active" for="name">Segundo apellido</label>
+        {{else}}
+        <label for="name">Segundo apellido</label>
+        {{/if}}
+    </div>
+</div>
+
+</div>
+    </form>
+
+

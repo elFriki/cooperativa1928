@@ -1,0 +1,41 @@
+
+<ul class="collection">
+    <li class="collection-header">
+      <h5>
+        <i class="material-icons" title="Usuario">room</i>
+        {{#if model.name}}
+        {{model.name}}
+        {{else}}
+        Nueva calle
+        {{/if}}
+
+        <span class="secondary-content">
+          {{#link-to 'calles'}}<i class="material-icons">room</i>{{/link-to}}
+        </span>
+      </h5>
+    </li>
+</ul>
+
+    <form>
+<p>
+<button type="submit" class='transparent' {{action 'saveModel' model}} title="Guarda los cambios">
+    <i class="material-icons black-text">save</i> 
+</button>
+</p>
+<div class="card card-panel">
+<div class="row">
+    <div class="input-field">
+        <i class="material-icons prefix">room</i>
+        {{input value=model.name id="name" required="true" type="text" class="validate"}}
+        {{#if model.name}}
+        <label class="active" for="name">Nombre completo</label>
+        {{else}}
+        <label for="name">Nombre completo</label>
+        {{/if}}
+    </div>
+</div>
+
+</div>
+    </form>
+
+

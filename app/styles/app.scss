@@ -1,0 +1,81 @@
+// Fix for Roboto font path
+$roboto-font-path: '../assets/';
+// Materialize styles
+@import "materialize";
+@import 'components/color';
+$primary-color: color("pink", "lighten-2");
+@import 'components/variables';
+@import 'ember-cli-materialize';
+$primary-color: color("materialize-red", "lighten-2") !default;
+$primary-color-light: false !default;
+$primary-color-dark: false !default;
+@if not $primary-color-light {
+    $primary-color-light: lighten($primary-color, 15%);
+}
+
+@if not $primary-color-dark {
+    $primary-color-dark: darken($primary-color, 15%);
+}
+
+$secondary-color: color("teal", "lighten-1") !default;
+$success-color: color("green", "base") !default;
+$error-color: color("red", "base") !default;
+$link-color: color("light-blue", "darken-1") !default;
+html {
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.icon-flag {
+    display: inline-block;
+    height: 20px;
+    width: 30px;
+}
+
+.avatar {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.container .row {
+    margin: 0 auto;
+}
+
+.card {
+@extend .hoverable;
+@extend .grey;
+@extend .lighten-3;
+@extend .z-depth-1;
+}
+
+.card .title {
+@extend .blue;
+@extend .lighten-3;
+}
+a {
+@extend .btn-floating;
+@extend .halfway-fab;
+@extend .waves-effect;
+@extend .waves-light;
+}
+button {
+@extend .btn-floating;
+@extend .halfway-fab;
+@extend .waves-effect;
+@extend .waves-light;
+}
+.material-icons.md-12 { font-size: 12px; }
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }

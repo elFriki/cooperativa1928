@@ -1,0 +1,167 @@
+
+<ul class="collection">
+    <li class="collection-header">
+      <h5>
+        <i class="material-icons" title="Usuario">person</i>{{model.id}}
+        <span class="secondary-content">
+          {{#link-to 'users'}}<i class="material-icons right">group</i>{{/link-to}}
+        </span>
+      </h5>
+    </li>
+</ul>
+
+    <form>
+<p>{{model.uid}}
+<button class='transparent' {{action 'saveUser' model}} title="Guarda los cambios">
+    <i class="material-icons black-text">save</i> 
+</button>
+</p>
+<div class="card card-panel">
+<div class="row">
+    <div class="input-field">
+        <i class="material-icons prefix">person</i>
+        {{input value=model.displayName id="displayName" required="true" type="text" class="validate"}}
+        {{#if model.displayName}}
+        <label class="active" for="displayName">Nombre, alias, nick...</label>
+        {{else}}
+        <label for="displayName">Nombre, alias, nick...</label>
+        {{/if}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field">
+        <i class="material-icons prefix">camera_roll</i>
+        {{input value=model.photoURL id="icon_photo" required="true" type="text" class="validate"}}
+        {{#if model.photoURL}}
+        <label class="active" for="icon_photo">URL foto</label>
+        {{else}}
+        <label for="icon_photo">URL foto</label>
+        {{/if}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field">
+        <i class="material-icons prefix">email</i>
+        {{input value=model.email id="icon_email" required="true" type="email" class="validate"}}
+        {{#if model.email}}
+        <label class="active" for="icon_email">Correo electrónico</label>
+        {{else}}
+        <label for="icon_email">Correo electrónico</label>
+        {{/if}}
+    </div>
+</div>
+
+<div class="row">
+    <div>
+        <p>
+            <i class="material-icons prefix">mail_outline</i>
+            <button class='transparent right' {{action 'saveUser' model}} title="Guarda los cambios">
+                <i class="material-icons black-text">email</i> 
+            </button>
+
+            {{md-switch checked=email.phoneVerified
+                onLabel="validado"
+                offLabel="no validado"
+                disabled=true}}
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field">
+        <i class="material-icons prefix">phone</i>
+        {{input value=model.phone id="icon_phone" required="true" type="text" class="validate"}}
+        {{#if model.phone}}
+        <label class="active" for="icon_phone">Teléfono</label>
+        {{else}}
+        <label for="icon_phone">Teléfono</label>
+        {{/if}}
+    </div>
+</div>
+
+<div class="row">
+    <div>
+        <p><i class="material-icons prefix">phone_locked</i>
+        {{#if model.phone}}
+        <button class='transparent right' {{action 'saveUser' model}} title="Guarda los cambios">
+            <i class="material-icons black-text">phone_in_talk</i> 
+        </button>
+        {{else}}
+        <button class='transparent right' {{action 'saveUser' model}} title="Guarda los cambios" disabled="true">
+            <i class="material-icons black-text">phone_in_talk</i> 
+        </button>
+        {{/if}}
+
+        {{md-switch checked=model.phoneVerified
+            onLabel="validado"
+            offLabel="no validado"
+            disabled=true}}</p>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="input-field">
+        <i class="material-icons prefix">event_seat</i>
+        {{input value=model.status id="icon_status" required="true" type="text" class="validate"}}
+        {{#if model.status}}
+        <label class="active" for="icon_status">Estatus</label>
+        {{else}}
+        <label for="icon_status">Estatus</label>
+        {{/if}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field">
+        <i class="material-icons prefix">room</i>
+        {{input value=model.home id="icon_home" required="true" type="text" class="validate"}}
+        {{#if model.home}}
+        <label class="active" for="icon_home">Casa de la cooperativa</label>
+        {{else}}
+        <label for="icon_home">Casa de la cooperativa</label>
+        {{/if}}
+    </div>
+</div>
+
+<div class="row">
+    <div>
+        <p><i class="material-icons prefix">location_off</i><i class="material-icons prefix right">home</i>
+        {{md-switch checked=model.isOwner
+            onLabel="propietario"
+            offLabel="inquilino"
+            disabled=false}}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div>
+        <p><i class="material-icons prefix">visibility_off</i><i class="material-icons prefix right">visibility</i>
+        {{md-switch checked=model.isAdmin
+            onLabel="de la junta o comisión"
+            offLabel="cooperativista"
+            disabled=false}}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div>
+        <p><i class="material-icons prefix">thumb_down</i><i class="material-icons prefix right">thumb_up</i>
+        {{md-switch checked=model.isActive
+            onLabel="cuenta activa"
+            offLabel="cuenta inactiva"
+            disabled=true}}</p>
+    </div>
+</div>
+
+</div>
+<button class='transparent' {{action 'saveUser' model}} title="Guarda los cambios">
+    <i class="material-icons black-text">save</i> 
+</button>
+    </form>
+
+
+

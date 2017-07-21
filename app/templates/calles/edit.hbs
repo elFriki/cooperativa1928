@@ -1,0 +1,59 @@
+
+<ul class="collection">
+    <li class="collection-header">
+      <h5>
+        <i class="material-icons" title="Usuario">room</i>{{model.name}}
+        <span class="secondary-content">
+          {{#link-to 'calles'}}<i class="material-icons right">room</i>{{/link-to}}
+        </span>
+      </h5>
+    </li>
+</ul>
+
+    <form>
+<p>
+<button class='transparent' {{action 'saveModel' model}} title="Guarda los cambios">
+    <i class="material-icons black-text">save</i> 
+</button>
+</p>
+<div class="card card-panel">
+<div class="row">
+    <div class="input-field">
+        <i class="material-icons prefix">room</i>
+        {{input value=model.name id="name" required="true" type="text" class="validate"}}
+        {{#if model.name}}
+        <label class="active" for="displayName">Nombre completo</label>
+        {{else}}
+        <label for="displayName">Nombre completo</label>
+        {{/if}}
+    </div>
+</div>
+<div class="row">
+    <ul class="collection">
+    {{#each model.casas as |casa|}}
+        <li>
+        {{#link-to 'casas.edit' casa.id}}<i class="material-icons">edit</i>{{/link-to}}
+        <a class="red" {{action 'deleteModel' casa}}><i class="material-icons">delete</i></a>
+        {{casa.numero}}
+
+<div class="row">
+    <ul class="collection">
+        {{#each casa.propietarios as |propietario|}}
+            <li>{{propietario.name}} {{propietario.surname1}} {{propietario.surname2}}</li>
+        {{/each}}
+    </ul>
+</div>
+
+
+        </li>
+    {{/each}}
+    </ul>
+</div>
+
+
+</div>
+
+    </form>
+
+
+

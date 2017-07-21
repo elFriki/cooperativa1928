@@ -1,0 +1,38 @@
+
+<ul class="collection">
+    <li class="collection-header">
+      <h5>
+        <i class="material-icons" title="Usuario">home</i>{{model.calle.name}}, {{model.numero}}
+        <span class="secondary-content">
+          {{#link-to 'casas'}}<i class="material-icons right">home</i>{{/link-to}}
+        </span>
+      </h5>
+    </li>
+</ul>
+
+    <form>
+<p>
+<button class='transparent' {{action 'saveModel' model}} title="Guarda los cambios">
+    <i class="material-icons black-text">save</i> 
+</button>
+</p>
+<div class="card card-panel">
+<div class="row">
+    <div class="input-field">
+        <i class="material-icons prefix">number</i>
+        {{input value=model.numero id="numero" required="true" type="text" class="validate"}}
+        {{#if model.numero}}
+        <label class="active" for="numero">Número</label>
+        {{else}}
+        <label for="numero">Número</label>
+        {{/if}}
+    </div>
+</div>
+
+
+</div>
+
+    </form>
+
+
+

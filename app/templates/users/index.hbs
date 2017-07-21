@@ -1,0 +1,22 @@
+<ul class="collection">
+    <li class="collection-header">
+      <h5>
+        <i class="material-icons" title="Usuarios">group</i>Usuarios
+        <span class="secondary-content">
+          {{#link-to 'users.new' class='btn-floating halfway-fab waves-effect waves-light green'}}<i class="material-icons right">add</i>{{/link-to}}
+          <i class="material-icons">group</i>{{users.length}}
+        </span>
+      </h5>
+    </li>
+</ul>
+
+<ul class="collection">
+{{#each users as |user|}}
+<li>
+  {{#link-to 'users.edit' user.id}}<i class="material-icons">edit</i>{{/link-to}}
+  <a class="red" {{action 'deleteUser' user}}><i class="material-icons">delete</i></a>
+  {{user.displayName}}
+</li>
+{{/each}}
+</ul>
+{{outlet}}

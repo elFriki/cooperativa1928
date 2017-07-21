@@ -1,0 +1,43 @@
+
+{{#md-card title="identifícate" activator=true id="card-reveal"}}
+    {{#md-card-content}}
+    <form>
+    <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+{{input type='email' id='iEmail' class='validate' value=email }}
+          <label class="active" for="iEmail">Correo electrónico</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">vpn_key</i>
+{{input type='password' id='iPassword' class='validate' value=password }}
+          <label class="active" for="iPassword">Clave</label>
+        </div>
+      </div>
+    </form>
+    {{#md-card-action}}
+{{#if session.isWorking}}
+{{md-loader mode="circular" size="large" color="red"}}
+{{else}}
+    <button class='transparent' {{action 'signIn' 'password'}} title="login">
+       <i class="material-icons black-text">fingerprint</i> 
+    </button>
+    <button class="right red" {{action 'sendPasswordReset'}} title="reset password">
+        <i class="material-icons white-text">vpn_key</i>
+    </button>
+{{/if}}
+    {{/md-card-action}}
+    {{/md-card-content}}
+    {{#md-card-reveal class="grey lighten-5"}}
+{{#if errorMessage}}
+    <h5>{{errorMessage}}</h5>
+{{else}}
+	<p>Rellena tu correo electrónico y una clave. Si no recuerdas la clave dale al botón <i class="material-icons md-12">vpn_key</i> para recibir por correo electrónico un enlace para volverla a definir.</p>
+{{/if}}
+    {{/md-card-reveal}}
+{{/md-card}}
+
+
+{{outlet}}

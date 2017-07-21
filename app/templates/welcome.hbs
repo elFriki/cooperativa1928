@@ -1,0 +1,111 @@
+{{#if users.length}}
+<p>Ya somos {{users.length}} usuarios registrados. {{user.displayName}}</p>
+{{/if}}
+{{#each users as |current|}}
+{{#if isCurrent 'current'}}
+<p>nick: {{current.displayName}}</p>
+<p>email: {{current.email}}</p>
+<p>phone: {{current.phone}}</p>
+<p>photo: {{current.photoURL}}</p>
+<p>uid: {{current.uid}}</p>
+<p>id: {{current.id}}</p>
+<p>status: {{current.status}}</p>
+<p>domicilio: {{current.home}}</p>
+<p>Admin: {{current.isAdmin}}</p>
+<p>Propietario: {{current.isOwner}}</p>
+<p>activo: {{current.isActive}}</p>
+{{/if}}
+{{/each}}
+
+  <div class="row" title="{{session.currentUser.uid}}">
+    <form class="col s12">
+
+      <div class="row">
+        <div class="input-field col s11">
+          <i class="material-icons prefix {{action 'info' 'Si no tienes validado el correo<br>Desliza el botón para recibir un enlace en tu dirección de correo para poder validarlo.'}}">email</i>
+          <input value="{{session.currentUser.email}}" id="icon_email" required type="email" class="validate">
+          <label class="active" for="icon_email">Correo electrónico</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s11">
+          <p>
+    {{#if session.currentUser.emailVerified}}
+  <p>Si modificas el correo electrónico habrá que validarlo de nuevo. </p> 
+    {{else}}
+{{md-switch checked=session.currentUser.emailVerified
+    onLabel="validar"
+    offLabel="no validado"
+    disabled=false
+    action="sendEmailVerification"}}
+    {{/if}}
+          </p>
+        </div>
+      </div>
+{{#if session.currentUser.emailVerified}}
+      <div class="row">
+        <div class="col s11">
+          <p>{{md-switch checked=session.currentUser.isAdmin
+                onLabel="de la junta, comisión o webmaster"
+                offLabel="cooperativista"
+                disabled=true}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s11">
+          <i class="material-icons prefix" {{action 'info' 'Nombre<br>El nombre que aparecerá en la app'}}>person</i>
+          <input value="{{user.displayName}}" required id="displayName" type="text" class="validate">
+          <label class="active" for="displayName">Nombre, alias, nick...</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s11">
+          <i class="material-icons prefix">camera_roll</i>
+          <input value="{{user.photoURL}}" required id="image" type="text" class="validate">
+          <label class="active" for="image">Imagen</label>
+        </div>
+      </div>
+{{else}}
+  <p>Para informar los datos necesarios hay que tener el correo electrónico validado. </p> 
+  <button class='btn-floating waves-effect waves-light right' {{action 'info' 'Si no tienes validado el correo. Desliza el botón para recibir un enlace en tu dirección de correo para poder validarlo.'}} title="Valida tu correo">
+      <i class="material-icons">info</i>
+  </button>
+{{/if}}
+
+{{#if session.isWorking}}
+{{md-loader mode="circular" size="large" color="red"}}
+{{else}}
+  <button class='btn-floating waves-effect waves-light' {{action 'info' 'Heeeeey!!!<br>He aquí la imformación deshechable que se puede mostrar'}} title="info">
+      <i class="material-icons">info</i> 
+  </button>
+  <button class='btn-floating waves-effect waves-light red' {{action 'signOut'}} title="logout">
+      <i class="material-icons">lock_outline</i> 
+  </button>
+  <button class='btn-floating waves-effect waves-light green' {{action 'basicUpdateUser'}} title="actualiza tu perfil">
+      <i class="material-icons">done_all</i>
+  </button>
+  <button class='btn-floating waves-effect waves-light red' {{action 'deleteUser'}} title="Elimina este usuario">
+      <i class="material-icons">delete_forever</i>
+  </button>
+{{/if}}
+
+    </form>
+  </div>
+
+<!--
+  clemente fernández
+  Paseo de los olivos
+  rogelio osorio
+  antonio Gistau
+  -->
+
+<!--
+<p>uid {{session.currentUser.uid}}</p>
+<p>displayName {{session.currentUser.displayName}}</p>
+<p>email {{session.currentUser.email}}</p>
+<p>emailVerified {{session.currentUser.emailVerified}}</p>
+<p>status {{session.currentUser.status}}</p>
+-->
+{{outlet}}

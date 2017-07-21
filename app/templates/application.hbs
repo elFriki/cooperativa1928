@@ -1,5 +1,64 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
 
+
+{{#if session.isWorking}}
+<h4 class="card-panel hoverable z-depth-1 center-align grey lighten-5">
+{{md-loader mode="circular" size="large" color="red" label="1928"}}
+</h4>
+{{else}}
+
+<h5 class="card-panel hoverable z-depth-1 center-align grey lighten-5">
+  <a href="/"><i class="material-icons" title="c1928">home</i></a>
+
+{{#if session.isAuthenticated}}
+  <a href="#" class="right red" {{action 'signOut'}}><i class="material-icons" title="logout">lock_open</i></a>
+  <a href="welcome">
+
+      {{#if session.currentUser.photoURL}}
+        <img src="{{session.currentUser.photoURL}}" alt="{{session.currentUser.email}}">
+      {{else}}
+        <i class="material-icons">person</i>
+      {{/if}}
+  </a>
+    {{#if session.currentUser.displayName}}
+        <span><small><small><small>N {{session.currentUser.displayName}}</small></small></small></span>
+    {{else}}
+        <span><small><small><small>E {{session.currentUser.email}}</small></small></small></span>
+    {{/if}}
+{{else}}
+  <a href="/sign-in" class="transparent right"><i class="material-icons black-text" title="login">fingerprint</i></a>
+{{/if}}
+</h5>
+
+
+<div class="fixed-action-btn horizontal">
+  <a class="btn-floating btn-large transparent">
+    <i class="material-icons large black-text">menu</i>
+  </a>
+  <ul>
+  <li><button class="transparent"><i class="material-icons black-text" title="usuarios">group<a href="users"></a></i></button></li>
+{{#if session.isAuthenticated}}
+  <li><button class="red" {{action 'signOut'}}><i class="material-icons" title="logout">lock_open</i></button></li>
+{{else}}
+  <li><button class="transparent"><i class="material-icons black-text" title="login o registro">fingerprint<a href="sign-in"></a></i></button></li>
+{{/if}}
+<li>
+    <button class="transparent" {{action 'info' '<i class="material-icons">info</i>Cooperativa de Casas baratas para los Ferroviarios del Norte, Ciudad Jardín Castañeda<br><br><br><br><br><br>'}}>
+        <i class="material-icons black-text">info</i>
+    </button>
+</li>
+  </ul>
+</div>
+
+
+
+<div class='container'>
 {{outlet}}
+</div>
+
+<footer class='page-footer transparent white-text'>
+    {{#md-copyright text='Cooperativa de Casas baratas para los Ferroviarios del Norte, Ciudad Jardín Castañeda'
+        startYear=1928
+        class='hoverable grey lighten-5 grey-text text-lighten-1'}}
+    {{/md-copyright}}
+</footer>
+{{/if}}

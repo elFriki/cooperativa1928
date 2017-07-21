@@ -1,0 +1,23 @@
+<ul class="collection">
+    <li class="collection-header">
+      <h5>
+        <i class="material-icons" title="Usuarios">group</i>Inquilinos
+        <span class="secondary-content">
+          {{#link-to 'inquilinos.new' class='green'}}<i class="material-icons right">add</i>{{/link-to}}
+          {{#link-to 'inquilinos'}}<i class="material-icons right">refresh</i>{{/link-to}}
+          <i class="material-icons">group</i>{{inquilinos.length}}
+        </span>
+      </h5>
+    </li>
+</ul>
+
+<ul class="collection">
+{{#each inquilinos as |inquilino|}}
+<li>
+  {{#link-to 'inquilinos.edit' inquilino.id}}<i class="material-icons">edit</i>{{/link-to}}
+  <a class="red" {{action 'deleteModel' inquilino}}><i class="material-icons">delete</i></a>
+  {{inquilino.name}} {{inquilino.surname1}} {{inquilino.surname2}}
+</li>
+{{/each}}
+</ul>
+{{outlet}}
