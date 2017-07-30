@@ -2,18 +2,18 @@
 {{#md-card title="identifícate" activator=true id="card-reveal"}}
     {{#md-card-content}}
     <form>
-    <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">email</i>
+    <div class="row blue-text text-darken-4">
+        <div class="input-field col s12 blue-text text-darken-4">
+          <i class="material-icons prefix blue-text text-darken-4">email</i>
 {{input type='email' id='iEmail' class='validate' value=email }}
-          <label class="active" for="iEmail">Correo electrónico</label>
+          <label class="{{if email 'active'}}" for="iEmail">Correo electrónico</label>
         </div>
       </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">vpn_key</i>
+      <div class="row blue-text text-darken-4">
+        <div class="input-field col s12 blue-text text-darken-4">
+          <i class="material-icons prefix blue-text text-darken-4">vpn_key</i>
 {{input type='password' id='iPassword' class='validate' value=password }}
-          <label class="active" for="iPassword">Clave</label>
+          <label class="{{if password 'active'}}" for="iPassword">Clave</label>
         </div>
       </div>
     </form>
@@ -21,12 +21,21 @@
 {{#if session.isWorking}}
 {{md-loader mode="circular" size="large" color="red"}}
 {{else}}
+{{#if email}}
+{{#if password}}
     <button class='transparent' {{action 'signIn' 'password'}} title="login">
-       <i class="material-icons black-text">fingerprint</i> 
+       <i class="material-icons  green-text text-darken-1">fingerprint</i> 
     </button>
-    <button class="right red" {{action 'sendPasswordReset'}} title="reset password">
+    <button class="right red" {{action 'sendPasswordReset'}} title="Envía el enlace a {{email}} para redefinir la clave">
         <i class="material-icons white-text">vpn_key</i>
     </button>
+{{else}}
+    <button class="right red" {{action 'sendPasswordReset'}} title="Si no recuerdas la clave, rellena el correo y la clave y dale al botón" disabled>
+        <i class="material-icons white-text">vpn_key</i>
+    </button>
+
+{{/if}}
+{{/if}}
 {{/if}}
     {{/md-card-action}}
     {{/md-card-content}}
@@ -34,10 +43,44 @@
 {{#if errorMessage}}
     <h5>{{errorMessage}}</h5>
 {{else}}
-	<p>Rellena tu correo electrónico y una clave. Si no recuerdas la clave dale al botón <i class="material-icons md-12">vpn_key</i> para recibir por correo electrónico un enlace para volverla a definir.</p>
+	<p>Rellena tu correo electrónico y una clave. Si no recuerdas la clave, rellena el correo y la clave y dale al botón <i class="material-icons md-12">vpn_key</i> para recibir por correo electrónico un enlace y volverla a definir.</p>
 {{/if}}
     {{/md-card-reveal}}
 {{/md-card}}
 
+
+{{#if modalIsOpen}}
+    {{#md-modal close='closeModal' class="test-modal"}}
+        <div class="modal-content">
+            <h4>¿Quién eres?</h4>
+            <p>El correo y clave es desconocido.</p>
+            <p>Si quieres registrarte por primera vez selecciona 
+            <a class="btn btn-floating halfway-fab waves-effect waves-light green" {{action 'createUser'}}>
+                <i class="material-icons green white-text">done</i>
+            </a>
+            </p>
+            <p>Si no, corrige el correo y o la clave.</p>
+            <p>Si no recuerdas la clave, selecciona 
+                <a class="btn btn-floating halfway-fab waves-effect waves-light red" {{action 'sendPasswordReset'}}>
+                    <i class="material-icons red white-text">vpn_key</i>
+                </a>
+                para recibir en tu correo un enlace donde poder redefinirla.</p>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-floating halfway-fab waves-effect waves-light red" {{action 'closeModal'}}>
+                <i class="material-icons red white-text">cancel</i>
+            </a>
+            <a class="btn btn-floating halfway-fab waves-effect waves-light green" {{action 'createUser'}}>
+                <i class="material-icons green white-text">done</i>
+            </a>
+            <!--a class="modal-action modal-close right green agree-button" {{action 'createUser'}}>
+                <i class="material-icons green-text text-darken-1">done</i>
+            </a>
+            <a class="modal-action modal-close waves-effect waves-red btn-flat cancel-button" {{action 'closeModal'}}>
+                <i class="material-icons red-text text-darken-1">cancel</i>
+            </a-->
+        </div>
+    {{/md-modal}}
+{{/if}}
 
 {{outlet}}

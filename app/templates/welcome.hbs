@@ -7,7 +7,7 @@
 <p>email: {{current.email}}</p>
 <p>phone: {{current.phone}}</p>
 <p>photo: {{current.photoURL}}</p>
-<p>uid: {{current.uid}}</p>
+<p>id: {{current.id}}</p>
 <p>id: {{current.id}}</p>
 <p>status: {{current.status}}</p>
 <p>domicilio: {{current.home}}</p>
@@ -16,6 +16,13 @@
 <p>activo: {{current.isActive}}</p>
 {{/if}}
 {{/each}}
+<p>{{user}}</p>
+{{#if user}}
+  {{user.id}}
+{{else}}
+no ID
+{{/if}}
+<p>{{session.currentUser.uid}}</p>
 
   <div class="row" title="{{session.currentUser.uid}}">
     <form class="col s12">
@@ -29,17 +36,22 @@
       </div>
       <div class="row">
         <div class="col s11">
-          <p>
     {{#if session.currentUser.emailVerified}}
-  <p>Si modificas el correo electrónico habrá que validarlo de nuevo. </p> 
-    {{else}}
+  <p>Ya tienes el correo electrónico validado, pero si lo modificas, habrá que validarlo de nuevo. </p> 
+          <p><i class="material-icons blue-text text-darken-4">email</i><i class="material-icons blue-text text-darken-4">check</i>
 {{md-switch checked=session.currentUser.emailVerified
-    onLabel="validar"
-    offLabel="no validado"
-    disabled=false
-    action="sendEmailVerification"}}
-    {{/if}}
+    disabled=true
+    action="sendEmailVerification"
+    class="right"}}
           </p>
+    {{else}}
+          <p><i class="material-icons blue-text text-darken-4">email</i><i class="material-icons blue-text text-darken-4">check</i>
+{{md-switch checked=session.currentUser.emailVerified
+    disabled=false
+    action="sendEmailVerification"
+    class="right"}}
+          </p>
+    {{/if}}
         </div>
       </div>
 {{#if session.currentUser.emailVerified}}
@@ -56,7 +68,7 @@
         <div class="input-field col s11">
           <i class="material-icons prefix" {{action 'info' 'Nombre<br>El nombre que aparecerá en la app'}}>person</i>
           <input value="{{user.displayName}}" required id="displayName" type="text" class="validate">
-          <label class="active" for="displayName">Nombre, alias, nick...</label>
+          <label class="{{if user.displayName 'active'}}" for="displayName">Nombre, alias, nick...</label>
         </div>
       </div>
 
@@ -64,7 +76,7 @@
         <div class="input-field col s11">
           <i class="material-icons prefix">camera_roll</i>
           <input value="{{user.photoURL}}" required id="image" type="text" class="validate">
-          <label class="active" for="image">Imagen</label>
+          <label class="{{if user.photoURL 'active'}}" for="image">Imagen</label>
         </div>
       </div>
 {{else}}
@@ -102,7 +114,7 @@
   -->
 
 <!--
-<p>uid {{session.currentUser.uid}}</p>
+<p>id {{session.currentUser.uid}}</p>
 <p>displayName {{session.currentUser.displayName}}</p>
 <p>email {{session.currentUser.email}}</p>
 <p>emailVerified {{session.currentUser.emailVerified}}</p>

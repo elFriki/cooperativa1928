@@ -1,9 +1,57 @@
+  <!--div class="row">
+    <div class="col s12"><p>s12</p></div>
+    <div class="col s12 m4 l2"><p>s12 m4</p></div>
+    <div class="col s12 m4 l8"><p>s12 m4</p></div>
+    <div class="col s12 m4 l2"><p>s12 m4</p></div>
+  </div>
+  <div class="row">
+    <div class="col s12 m6 l3"><p>s12 m6 l3</p></div>
+    <div class="col s12 m6 l3"><p>s12 m6 l3</p></div>
+    <div class="col s12 m6 l3"><p>s12 m6 l3</p></div>
+    <div class="col s12 m6 l3"><p>s12 m6 l3</p></div>
+  </div-->
+
 <div class="row">
+
     
-  <div>
-{{#md-card title="c1928" activator=true id="card-reveal"}}
+  <div class="col s12 m10 l10">
+{{#md-card title="cooperativApp" activator=true id="card-reveal" class="white"}}
+
     {{#md-card-content}}
-    <p>{{moment-format (now)}}</p>
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="favicon.png">
+    <span class="card-title cyan-text">{{moment-format (now)}}</span>
+    </div>
+
+<!--span class="card-title activator grey-text text-darken-4">{{moment-format (now)}}<i class="material-icons right">more_vert</i></span-->
+    <h6 class="right"><i>Entre todos es más fácil</i></h6>
+
+{{#if session.isAuthenticated}}
+	<p>Desde el botón de ajustes <i class="material-icons md-12" title="Ajustes de usuario">settings</i> puedes añadir y modificar la información de tu usuario.</p>
+{{/if}}
+    {{#md-card-action}}
+{{#if session.isAuthenticated}}
+        <a href="welcome" class='transparent'><i class="material-icons black-text" title="Ajustes de usuario">settings</i></a>
+<!--        {{#link-to 'welcome' user.uid}}<i class="material-icons">settings</i>{{/link-to}}-->
+
+{{else}}
+        <a href="/sign-in" class='btn btn-floating pulse green'><i class="material-icons white-text" title="Identifícate">fingerprint</i></a>
+{{/if}}
+
+        {{#link-to "users" class='btn btn-floating pulse orange' title='gestión de usuarios'}}<i class="material-icons white-text">group</i>{{/link-to}}
+<!--        {{#link-to "calles" class='transparent' title='gestión de calles'}}<i class="material-icons black-text">room</i>{{/link-to}}
+        {{#link-to "propietarios" class='transparent' title='gestión de propietarios'}}<i class="material-icons black-text">group</i>{{/link-to}}
+        {{#link-to "casas" class='transparent' title='gestión de casas'}}<i class="material-icons black-text">home</i>{{/link-to}}
+        {{#link-to "inquilinos" class='transparent' title='gestión de inquilinos'}}<i class="material-icons black-text">group</i>{{/link-to}}
+-->
+    {{/md-card-action}}
+    {{/md-card-content}}
+
+    {{#md-card-reveal class="cyan white-text"}}
+    <!--p>Bienvenid@ a la web de la Cooperativa de Casas baratas para los Ferroviarios del Norte, Ciudad Jardín Castañeda. </p-->
+    <p>Bienvenid@ a la cooperativApp.</p>
+    <p>Esta web pretende ser una herramienta que sirva para agilizar la comunicación entre nosotros y que las pequeñas gestiones, que son necesarias para que esto funcione, no nos lleven media vida. </p>
+<!--
 <p>
 {{#if users.length}}
 Ya somos {{users.length}} usuarios registrados,  
@@ -27,36 +75,15 @@ varias
 {{#if calles.length}}
 <p>Estamos repartidos en {{calles.length}} calles.</p>
 {{/if}}
+-->
 
-{{#if session.isAuthenticated}}
-	<p>Desde el botón de ajustes <i class="material-icons md-12" title="Ajustes de usuario">settings</i> puedes añadir y modificar la información de tu usuario.</p>
-{{/if}}
-    {{#md-card-action}}
-{{#if session.isAuthenticated}}
-        <a href="welcome" class='transparent'><i class="material-icons black-text" title="Ajustes de usuario">settings</i></a>
-<!--        {{#link-to 'welcome' user.uid}}<i class="material-icons">settings</i>{{/link-to}}-->
-
-{{else}}
-        {{#link-to "sign-in" class='transparent' title='login'}}<i class="material-icons black-text">fingerprint</i>{{/link-to}}
-{{/if}}
-        {{#link-to "users" class='transparent' title='gestión de usuarios'}}<i class="material-icons black-text">group</i>{{/link-to}}
-        {{#link-to "calles" class='transparent' title='gestión de calles'}}<i class="material-icons black-text">room</i>{{/link-to}}
-        {{#link-to "propietarios" class='transparent' title='gestión de propietarios'}}<i class="material-icons black-text">group</i>{{/link-to}}
-        {{#link-to "casas" class='transparent' title='gestión de casas'}}<i class="material-icons black-text">home</i>{{/link-to}}
-        {{#link-to "inquilinos" class='transparent' title='gestión de inquilinos'}}<i class="material-icons black-text">group</i>{{/link-to}}
-    {{/md-card-action}}
-    {{/md-card-content}}
-
-    {{#md-card-reveal class="grey lighten-5"}}
 {{#if session.isAuthenticated}}
 	<p>Desde el botón de ajustes puedes añadir y modificar la información de tu usuario.</p>
 {{else}}
-	<p>Regístrarte o accede con tu correo electrónico y una clave. </p>
+	<p>Identifícate con tu correo electrónico y una clave. La primera vez que lo hagas quedarás registrado y, cuando valides que la dirección de correo es correcta, podrás aportar el resto de información necesaria.</p>
 {{/if}}
     {{/md-card-reveal}}
 {{/md-card}}
   </div>
 </div>
-<p>Bienvenid@ a la web de la Cooperativa de Casas baratas para los Ferroviarios del Norte, Ciudad Jardín Castañeda. </p>
-<p>Desde aquí podrás hacer uso de todo lo que que tenga que ver con ella. </p>
 {{outlet}}

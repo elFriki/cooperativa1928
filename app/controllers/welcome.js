@@ -4,60 +4,61 @@ import Materialize from 'materialize';
 const { toast } = Materialize;
 
 export default Ember.Controller.extend({
-	
+
     firebaseApp: Ember.inject.service(),
-    
+
     user: Ember.computed('users@each', function() {
         let controller = this;
         const auth = controller.get('firebaseApp').auth();
-        let current = this.get('users').filterBy('uid', auth.currentUser.uid);
+        let current = this.get('users').filterBy('id', auth.currentUser.uid);
         return current;
         //return auth.currentUser;
-	}).property('user'),
+    }).property('user'),
 
     isCurrent: Ember.computed('user', function() {
         let controller = this;
         const auth = controller.get('firebaseApp').auth();
         toast(auth.currentUser.email);
         //console.log(auth.currentUser.email);
-return false;	}),
+        return false;
+    }),
 
-	displayName: Ember.computed('firebaseApp', function() {
+    displayName: Ember.computed('firebaseApp', function() {
         let controller = this;
         const auth = controller.get('firebaseApp').auth();
-		return auth.currentUser.displayName;
-	}),
+        return auth.currentUser.displayName;
+    }),
 
     photoURL: Ember.computed('firebaseApp', function() {
         let controller = this;
         const auth = controller.get('firebaseApp').auth();
-		return auth.currentUser.photoURL;
-	}),
+        return auth.currentUser.photoURL;
+    }),
 
     actions: {
         info(param) {
-/*
-            let msg = '<i class="material-icons">info</i>';
-            msg += param;
-            msg += '<br><br><br><br><small>(desliza para que desaparezca)</small>';
-            Materialize.toast(msg, 5000, 'rounded transparent black-text');
-*/
+            /*
+                        let msg = '<i class="material-icons">info</i>';
+                        msg += param;
+                        msg += '<br><br><br><br><small>(desliza para que desaparezca)</small>';
+                        Materialize.toast(msg, 5000, 'rounded transparent black-text');
+            */
             toast(param, 5000, 'rounded #ffca28 amber lighten-1 black-text');
 
         },
-		sendEmailVerification() {
+        sendEmailVerification() {
             let controller = this;
             toast('Conectando...', 2000, 'rounded #ffca28 amber lighten-1 black-text');
             const auth = this.get('firebaseApp').auth();
             toast('Comprobando...', 2000, 'rounded #ffca28 amber lighten-1 black-text');
             auth.currentUser.sendEmailVerification()
-            .then(() => {
-                toast('Email de verificación enviado', 4000, 'rounded #ffca28 amber lighten-1 black-text');
-                controller.set('confirmEmail', true);
-            }, (error) => {
-                var msg = error.code + ": " + error.message;
-                toast(msg, 5000, 'rounded #ffca28 amber lighten-1 black-text');
-            });
+                .then(() => {
+                    toast('Email de verificación enviado', 4000, 'rounded #ffca28 amber lighten-1 black-text');
+                    controller.set('confirmEmail', true);
+                }, (error) => {
+                    var msg = error.code + ": " + error.message;
+                    toast(msg, 5000, 'rounded #ffca28 amber lighten-1 black-text');
+                });
 
         },
         basicUpdateUser() {
@@ -65,8 +66,8 @@ return false;	}),
             toast("Actualizando...", 2000, 'rounded #ffca28 amber lighten-1 black-text');
             const auth = this.get('firebaseApp').auth();
             auth.currentUser.updateProfile({
-//                displayName: controller.get('displayName') || auth.currentUser.displayName,
-//                photoURL: controller.get('photoURL') || auth.currentUser.photoURL
+                //                displayName: controller.get('displayName') || auth.currentUser.displayName,
+                //                photoURL: controller.get('photoURL') || auth.currentUser.photoURL
                 displayName: controller.get('displayName'),
                 photoURL: controller.get('photoURL')
             }).then(function() {
@@ -88,16 +89,15 @@ return false;	}),
                     this.get('session').close();
                     this.transitionToRoute('/');
                 }, (error) => {
-                        if (error) {
-                            if (error.code === 'auth/requires-recent-login') {
-                                toast('Para realizar esta operación es necesario el inicio de sesión reciente', 10000, 'rounded #ffca28 amber lighten-1 black-text');
-                            } else {
-                                toast(error.code, 5000, 'rounded #ffca28 amber lighten-1 black-text');
-                                toast(error.message, 10000, 'rounded #ffca28 amber lighten-1 black-text');
-                            }
+                    if (error) {
+                        if (error.code === 'auth/requires-recent-login') {
+                            toast('Para realizar esta operación es necesario el inicio de sesión reciente', 10000, 'rounded #ffca28 amber lighten-1 black-text');
+                        } else {
+                            toast(error.code, 5000, 'rounded #ffca28 amber lighten-1 black-text');
+                            toast(error.message, 10000, 'rounded #ffca28 amber lighten-1 black-text');
                         }
                     }
-                );
+                });
             } else {
                 toast("Borrado cancelado");
             }
@@ -110,4 +110,4 @@ return false;	}),
             toast('Se ha cerrando sesión', 2000, 'rounded red black-text');
         }
     }
-	});
+});

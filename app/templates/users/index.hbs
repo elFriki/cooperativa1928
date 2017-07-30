@@ -1,22 +1,25 @@
-<ul class="collection">
-    <li class="collection-header">
-      <h5>
-        <i class="material-icons" title="Usuarios">group</i>Usuarios
-        <span class="secondary-content">
-          {{#link-to 'users.new' class='btn-floating halfway-fab waves-effect waves-light green'}}<i class="material-icons right">add</i>{{/link-to}}
-          <i class="material-icons">group</i>{{users.length}}
-        </span>
-      </h5>
-    </li>
-</ul>
 
-<ul class="collection">
+
+<div class="fixed-action-btn horizontal">
+  <a class="btn-floating btn-large cyan">
+    <i class="material-icons large black-text">group</i>
+  </a>
+  <ul>
+    <li><a href="/index" class="btn btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">arrow_back</i></a></li>
+    <li><a href="users" class="btn halfway-fab waves-effect waves-light cyan">{{users.length}}<i class="material-icons right">group</i></a></li>
+    <li><a href="users.new" class="btn btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">add</i></a></li>
+  </ul>
+</div>
+
+
+
+<div class="collection">
 {{#each users as |user|}}
-<li>
-  {{#link-to 'users.edit' user.id}}<i class="material-icons">edit</i>{{/link-to}}
-  <a class="red" {{action 'deleteUser' user}}><i class="material-icons">delete</i></a>
-  {{user.displayName}}
-</li>
+
+  {{#link-to 'users.edit' user.id class="collection-item"}}<i class="material-icons blue-text right">edit</i><i class="material-icons red-text right" {{action 'deleteUser' user}}>delete</i> {{user.displayName}} {{/link-to}}
+  
+
 {{/each}}
-</ul>
+</div>
+
 {{outlet}}

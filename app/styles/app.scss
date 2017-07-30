@@ -22,7 +22,7 @@ $success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
 $link-color: color("light-blue", "darken-1") !default;
 html {
-    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+    font-family: comic-sans, GillSans, Calibri, Trebuchet, sans-serif;
 }
 
 body {
@@ -43,8 +43,8 @@ main {
 
 .avatar {
     display: inline-block;
-    height: 20px;
-    width: 20px;
+    height: 45px;
+    width: 70px;
 }
 
 .container .row {
@@ -52,30 +52,56 @@ main {
 }
 
 .card {
-@extend .hoverable;
-@extend .grey;
-@extend .lighten-3;
-@extend .z-depth-1;
+    @extend .hoverable;
+    @extend .grey;
+    @extend .lighten-3;
+    @extend .z-depth-1;
 }
 
 .card .title {
-@extend .blue;
-@extend .lighten-3;
+    @extend .blue;
+    @extend .lighten-3;
 }
+
+
+/*
 a {
-@extend .btn-floating;
-@extend .halfway-fab;
-@extend .waves-effect;
-@extend .waves-light;
+    @extend .btn-floating;
+    @extend .halfway-fab;
+    @extend .waves-effect;
+    @extend .waves-light;
 }
+*/
+
 button {
-@extend .btn-floating;
-@extend .halfway-fab;
-@extend .waves-effect;
-@extend .waves-light;
+    @extend .btn-floating;
+    @extend .halfway-fab;
+    @extend .waves-effect;
+    @extend .waves-light;
 }
-.material-icons.md-12 { font-size: 12px; }
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+
+.btn-small {
+    height: 12px;
+    line-height: 12px;
+    padding: 0 0.5rem;
+}
+
+.material-icons.md-12 {
+    font-size: 12px;
+}
+
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}

@@ -1,7 +1,20 @@
 import Ember from 'ember';
+import Materialize from 'materialize';
+
+const { toast } = Materialize;
 
 export default Ember.Route.extend({
 
+    beforeModel() {
+        if (this.get('session.isAuthenticated')) {
+            this.transitionTo('welcome');
+        } else {
+            toast('Este tipo de notas se mostrarán hasta que se hayan registrado más de la mitad de los propietarios.', 4000);
+            toast('Si no se van solas...', 6000);
+            toast('...échala a un lado...');
+            toast('...para que desaparezca.', 10000);
+        }
+    },
     model() {
         return Ember.RSVP.hash({
             users: this.store.findAll('user').then(results => results.sortBy('email')),

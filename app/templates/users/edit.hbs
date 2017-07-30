@@ -1,73 +1,195 @@
-
-<ul class="collection">
-    <li class="collection-header">
-      <h5>
-        <i class="material-icons" title="Usuario">person</i>{{model.id}}
-        <span class="secondary-content">
-          {{#link-to 'users'}}<i class="material-icons right">group</i>{{/link-to}}
-        </span>
-      </h5>
-    </li>
-</ul>
+<div class="fixed-action-btn horizontal">
+  <a class="btn-floating btn-large green">
+    <i class="material-icons large white-text">person</i>
+  </a>
+  <ul>
+    <li><a href="/users" class="btn btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">arrow_back</i></a></li>
+    <li><a {{action 'saveUser' model}} class="btn btn-floating halfway-fab waves-effect waves-light green" title="Guarda los cambios"><i class="material-icons">save</i></a></li>
+    <!--li><a href="users.new" class="btn btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">add</i></a></li-->
+  </ul>
+</div>
 
     <form>
-<p>{{model.uid}}
-<button class='transparent' {{action 'saveUser' model}} title="Guarda los cambios">
-    <i class="material-icons black-text">save</i> 
-</button>
-</p>
-<div class="card card-panel">
-<div class="row">
-    <div class="input-field">
-        <i class="material-icons prefix">person</i>
-        {{input value=model.displayName id="displayName" required="true" type="text" class="validate"}}
-        {{#if model.displayName}}
-        <label class="active" for="displayName">Nombre, alias, nick...</label>
-        {{else}}
-        <label for="displayName">Nombre, alias, nick...</label>
-        {{/if}}
-    </div>
-</div>
+{{#if isCurrent}}
+<!--p>{{model.emailVerified}} {{session.currentUser.emailVerified}}</p-->
 
-<div class="row">
-    <div class="input-field">
-        <i class="material-icons prefix">camera_roll</i>
-        {{input value=model.photoURL id="icon_photo" required="true" type="text" class="validate"}}
-        {{#if model.photoURL}}
-        <label class="active" for="icon_photo">URL foto</label>
-        {{else}}
-        <label for="icon_photo">URL foto</label>
-        {{/if}}
-    </div>
-</div>
+{{else}}
+<p>ESTA CUENTA NO ES LA TUYA</p>
+{{/if}}
+{{#if needUpgrade}}
+{{/if}}
+{{#md-card-collapsible class="collapsible hoverable" accordion=false}}
 
-<div class="row">
-    <div class="input-field">
-        <i class="material-icons prefix">email</i>
-        {{input value=model.email id="icon_email" required="true" type="email" class="validate"}}
-        {{#if model.email}}
-        <label class="active" for="icon_email">Correo electrónico</label>
-        {{else}}
-        <label for="icon_email">Correo electrónico</label>
-        {{/if}}
-    </div>
-</div>
+{{#if isCurrent}}
 
-<div class="row">
-    <div>
-        <p>
-            <i class="material-icons prefix">mail_outline</i>
-            <button class='transparent right' {{action 'saveUser' model}} title="Guarda los cambios">
-                <i class="material-icons black-text">email</i> 
-            </button>
 
-            {{md-switch checked=email.phoneVerified
-                onLabel="validado"
-                offLabel="no validado"
-                disabled=true}}
-        </p>
-    </div>
-</div>
+{{#if isCurrent}}
+    <li>
+{{#if session.currentUser.photoURL}}
+        <div class="collapsible-header">{{model.displayName}}<img src="{{session.currentUser.photoURL}}" class="avatar right hoverable"><br><br></div>
+        
+{{else}}
+{{#if model.displayName}}
+        <div class="collapsible-header"><i class="material-icons green-text">person</i>{{model.displayName}}</div>
+{{else}}
+        <div class="collapsible-header active"><i class="material-icons cyan-text">person</i>Nombre</div>
+{{/if}}
+{{/if}}
+        <div class="collapsible-body card card-panel cyan">
+            <div class="input-field">
+{{input value=model.displayName id="displayName" required="true" type="text" class="validate"}}
+<label class="{{if model.displayName 'active'}}" for="displayName">Nombre, alias, nick...</label>
+            </div>
+        </div>
+    </li>
+{{else}}
+    <li>
+{{#if model.displayName}}
+        <div class="collapsible-header"><i class="material-icons grey-text">person</i>{{model.displayName}}</div>
+{{else}}
+        <div class="collapsible-header active"><i class="material-icons cyan-text">person</i>No tiene nombre</div>
+{{/if}}
+    </li>
+{{/if}}
+
+    <li>
+        <div class="collapsible-header {{if reSetPassword 'active'}}"><i class="material-icons green-text {{if reSetPassword 'amber-text'}}">vpn_key</i>Clave{{if reSetPassword '...'}}
+        {{md-switch checked=reSetPassword
+            class="right"
+            action="sendPasswordReset"
+            disabled=reSetPassword}}
+        </div>
+        <div class="collapsible-body card card-panel cyan">
+{{#if reSetPassword}}
+<p>Se ha enviado a {{model.email}} un enlace donde poder redefinir la clave. </p> 
+{{else}}
+<p>Dale al botón para recibir por correo electrónico un enlace donde poder redefinir la clave. </p> 
+{{/if}}
+        </div>
+    </li>
+
+    <li>
+{{#if isCurrent}}
+{{#if session.currentUser.emailVerified}}
+    {{#if model.emailVerified}}
+        <div class="collapsible-header"><i class="material-icons green-text">email</i>{{session.currentUser.email}}
+        {{md-switch checked=model.emailVerified
+            class="right"
+            action="sendEmailVerification"
+            disabled=model.emailVerified}}
+        </div>
+        <div class="collapsible-body card card-panel cyan">
+            <div class="input-field">
+{{input value=model.email id="icon_email" required="true" type="email" class="validate"}}
+<label class="{{if model.email 'active'}}" for="icon_email">Correo electrónico</label>
+            </div>
+          <p>Si modificas el correo electrónico validado, habrá que validarlo de nuevo y el usuario permacerá inactivo hasta que sea revisado. </p> 
+
+        </div>
+    {{else}}
+        <div class="collapsible-header active"><i class="material-icons amber-text">email</i>{{session.currentUser.email}}
+        {{md-switch checked=model.emailVerified
+            class="right"
+            action="needUpgrade"
+            disabled=model.emailVerified}}
+        </div>
+        <div class="collapsible-body card card-panel red lighten-3">
+    <p>Parece que pudiste validar tu correo {{session.currentUser.email}}, pero al ser un proceso asíncrono y no haber abandonado la sesión tus datos permacen desactualizados. Dale al botón para volver a la normalidad.</p> 
+        </div>
+    {{/if}}
+{{else}}
+        <div class="collapsible-header"><i class="material-icons red-text">email</i>{{session.currentUser.email}}
+        {{md-switch checked=model.emailVerified
+            class="right"
+            action="sendEmailVerification"
+            disabled=model.emailVerified}}
+        </div>
+        <div class="collapsible-body card card-panel cyan">
+{{#if model.emailVerified}}
+    <p>Se ha enviado a {{model.email}} un enlace donde poder validarlo. </p> 
+{{else}}
+  <p>Dale al botón para recibir por correo electrónico un enlace donde poder validarlo. </p> 
+{{/if}}
+        </div>
+{{/if}}
+
+{{else}}
+{{#if model.emailVerified}}
+        <div class="collapsible-header"><i class="material-icons green-text">email</i>Correo electrónico
+        {{md-switch checked=model.emailVerified
+            class="cyan-text right"
+            disabled=true}}
+        </div>
+{{else}}
+        <div class="collapsible-header active"><i class="material-icons red-text">email</i>Correo no validado
+        {{md-switch checked=model.emailVerified
+            class="cyan-text right"
+            disabled=false}}
+        </div>
+{{/if}}
+        <div class="collapsible-body card card-panel cyan">
+            <div class="input-field">
+{{input value=model.email id="icon_email" required="true" type="email" class="validate"}}
+<label class="{{if model.email 'active'}}" for="icon_email">Correo electrónico</label>
+            </div>
+{{#if model.emailVerified}}
+  <p>Si modificas el correo electrónico validado, habrá que validarlo de nuevo. </p> 
+{{else}}
+  <p>Dale al botón para recibir por correo electrónico un enlace donde poder validarlo. </p> 
+{{/if}}
+
+        </div>
+{{/if}}
+    </li>
+
+    <li>
+        <!-- http://funnyfrontend.com/wp-content/uploads/2015/11/anonymous-avatar.jpg-->
+        <div class="collapsible-header"><i class="material-icons cyan-text">camera_roll</i>URL foto</div>
+
+<!--
+{{#if session.currentUser.photoURL}}
+        <div class="collapsible-header"><i class="material-icons cyan-text">camera_roll</i>URL foto</div>
+{{else}}
+        <div class="collapsible-header active"><i class="material-icons cyan-text">camera_roll</i>URL foto</div>
+{{/if}}
+-->
+        <div class="collapsible-body card card-panel cyan">
+            <div class="input-field">
+{{input value=photoURL id="icon_photo" required="true" type="text" class="validate"}}
+<label class="{{if session.currentUser.photoURL 'active'}}" for="icon_photo">URL foto</label>
+            </div>
+        </div>
+    </li>
+
+    <li>
+{{#if model.isActive}}
+        <div class="collapsible-header"><i class="material-icons green-text">thumb_up</i>Usuario activo
+        {{md-switch checked=model.isActive
+            class="right"
+            disabled=true}}
+        </div>
+{{else}}
+        <div class="collapsible-header"><i class="material-icons red-text">thumb_down</i>Usuario inactivo
+        {{md-switch checked=model.isActive
+            class="right"
+            disabled=true}}
+        </div>
+{{/if}}
+
+        <div class="collapsible-body card card-panel cyan">
+            <p>Este indicador estará activado cuando aportes los datos necesarios y sean revisados por la Junta o Comisión.</p>
+        </div>
+
+    </li>
+{{/if}}
+
+{{/md-card-collapsible}}
+
+
+
+<!--div class="card card-panel">
+
+
 
 <div class="row">
     <div class="input-field">
@@ -147,20 +269,9 @@
     </div>
 </div>
 
-<div class="row">
-    <div>
-        <p><i class="material-icons prefix">thumb_down</i><i class="material-icons prefix right">thumb_up</i>
-        {{md-switch checked=model.isActive
-            onLabel="cuenta activa"
-            offLabel="cuenta inactiva"
-            disabled=true}}</p>
-    </div>
-</div>
 
-</div>
-<button class='transparent' {{action 'saveUser' model}} title="Guarda los cambios">
-    <i class="material-icons black-text">save</i> 
-</button>
+
+</div-->
     </form>
 
 
