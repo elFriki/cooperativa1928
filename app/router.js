@@ -30,7 +30,7 @@ Router.map(function() {
     this.route('sign-in');
     /*this.authenticatedRoute('welcome');*/
 
-    this.route('index');
+    this.route('index', { path: '/' });
     this.route('info');
     this.route('wheel');
 });
