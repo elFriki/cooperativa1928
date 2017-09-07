@@ -16,7 +16,7 @@
 <div class="collection">
 {{#each users as |user|}}
 
-  {{#link-to 'users.edit' user.id class="collection-item"}}<i class="material-icons blue-text right">edit</i><i class="material-icons red-text right" {{action 'deleteUser' user}}>delete</i> {{user.displayName}} {{/link-to}}
+  {{#link-to 'users.edit' user.id class="collection-item transparent"}}<i class="material-icons blue-text right">edit</i><i class="material-icons red-text right" {{action 'deleteUser' user}}>delete</i> {{user.displayName}} {{/link-to}}
   
 
 {{/each}}

@@ -26,8 +26,14 @@
 {{#if isCurrent}}
     <li>
 {{#if session.currentUser.photoURL}}
-        <div class="collapsible-header">{{model.displayName}}<img src="{{session.currentUser.photoURL}}" class="avatar right hoverable"><br><br></div>
-        
+        <!--div class="collapsible-header">{{model.displayName}}<img src="{{session.currentUser.photoURL}}" class="avatar right hoverable"><br><br></div-->
+        <div class="collapsible-header">
+            <div class="chip transparent">
+                <img src="{{session.currentUser.photoURL}}" class="avatar right hoverable">
+            </div>
+            {{model.displayName}}
+        </div>
+
 {{else}}
 {{#if model.displayName}}
         <div class="collapsible-header"><i class="material-icons green-text">person</i>{{model.displayName}}</div>
@@ -35,7 +41,7 @@
         <div class="collapsible-header active"><i class="material-icons cyan-text">person</i>Nombre</div>
 {{/if}}
 {{/if}}
-        <div class="collapsible-body card card-panel cyan">
+        <div class="collapsible-body card card-panel">
             <div class="input-field">
 {{input value=model.displayName id="displayName" required="true" type="text" class="validate"}}
 <label class="{{if model.displayName 'active'}}" for="displayName">Nombre, alias, nick...</label>
@@ -59,7 +65,7 @@
             action="sendPasswordReset"
             disabled=reSetPassword}}
         </div>
-        <div class="collapsible-body card card-panel cyan">
+        <div class="collapsible-body card card-panel">
 {{#if reSetPassword}}
 <p>Se ha enviado a {{model.email}} un enlace donde poder redefinir la clave. </p> 
 {{else}}
@@ -67,7 +73,29 @@
 {{/if}}
         </div>
     </li>
+    <li>
+{{#if isCurrent}}
+{{#if session.currentUser.emailVerified}}
+        <div class="collapsible-header"><i class="material-icons {{if session.currentUser.emailVerified 'green-text'}}">email</i>{{session.currentUser.email}}
+        {{md-switch checked=session.currentUser.emailVerified
+            class="right"
+            action="sendEmailVerification"
+            disabled=session.currentUser.emailVerified}}
+        </div>
+        <div class="collapsible-body card card-panel">
+            <div class="input-field">
+{{input value=model.email id="icon_email" required="true" type="email" class="validate"}}
+<label class="{{if model.email 'active'}}" for="icon_email">Correo electrónico</label>
+            </div>
+          <p>Si modificas el correo electrónico validado, habrá que validarlo de nuevo y el usuario permacerá inactivo hasta que sea revisado. </p> 
 
+        </div>
+{{/if}}
+{{/if}}
+    </li>
+
+
+<!--
     <li>
 {{#if isCurrent}}
 {{#if session.currentUser.emailVerified}}
@@ -78,7 +106,7 @@
             action="sendEmailVerification"
             disabled=model.emailVerified}}
         </div>
-        <div class="collapsible-body card card-panel cyan">
+        <div class="collapsible-body card card-panel">
             <div class="input-field">
 {{input value=model.email id="icon_email" required="true" type="email" class="validate"}}
 <label class="{{if model.email 'active'}}" for="icon_email">Correo electrónico</label>
@@ -104,7 +132,7 @@
             action="sendEmailVerification"
             disabled=model.emailVerified}}
         </div>
-        <div class="collapsible-body card card-panel cyan">
+        <div class="collapsible-body card card-panel">
 {{#if model.emailVerified}}
     <p>Se ha enviado a {{model.email}} un enlace donde poder validarlo. </p> 
 {{else}}
@@ -127,7 +155,7 @@
             disabled=false}}
         </div>
 {{/if}}
-        <div class="collapsible-body card card-panel cyan">
+        <div class="collapsible-body card card-panel">
             <div class="input-field">
 {{input value=model.email id="icon_email" required="true" type="email" class="validate"}}
 <label class="{{if model.email 'active'}}" for="icon_email">Correo electrónico</label>
@@ -142,9 +170,36 @@
 {{/if}}
     </li>
 
+-->
+
+    <li>
+        <div class="collapsible-header active"><i class="material-icons {{if model.home 'green-text'}}">room</i>¿Dónde vives?</div>
+{{#if model.home}}
+        <div class="collapsible-body card card-panel">
+            {{#if model.home.isPending}}
+            {{md-loader mode="circular" size="large" color="red"}}
+            {{else}}
+            <div class="input-field">
+{{input value=model.home.numero id="icon_home_number" required="true" type="text" class="validate"}}
+<label class="{{if model.home.numero 'active'}}" for="icon_home_number">Número</label>
+            </div>
+            {{/if}}
+
+        </div>
+{{else}}
+        <div class="collapsible-body card card-panel">NO HOME
+        </div>
+{{/if}}
+
+    </li>
+
+
+
+{{#if session.currentUser.emailVerified}}
+
     <li>
         <!-- http://funnyfrontend.com/wp-content/uploads/2015/11/anonymous-avatar.jpg-->
-        <div class="collapsible-header"><i class="material-icons cyan-text">camera_roll</i>URL foto</div>
+        <div class="collapsible-header"><i class="material-icons {{if photoURL 'green-text'}}">camera_roll</i>URL foto</div>
 
 <!--
 {{#if session.currentUser.photoURL}}
@@ -153,30 +208,41 @@
         <div class="collapsible-header active"><i class="material-icons cyan-text">camera_roll</i>URL foto</div>
 {{/if}}
 -->
-        <div class="collapsible-body card card-panel cyan">
+        <div class="collapsible-body card card-panel">
             <div class="input-field">
 {{input value=photoURL id="icon_photo" required="true" type="text" class="validate"}}
-<label class="{{if session.currentUser.photoURL 'active'}}" for="icon_photo">URL foto</label>
+<label class="{{if photoURL 'active'}}" for="icon_photo">URL foto</label>
             </div>
         </div>
     </li>
 
     <li>
-{{#if model.isActive}}
-        <div class="collapsible-header"><i class="material-icons green-text">thumb_up</i>Usuario activo
-        {{md-switch checked=model.isActive
+        <div class="collapsible-header"><i class="material-icons {{if model.isOwner 'green-text'}}">home</i>¿Eres propietario?
+        {{md-switch checked=model.isOwner
             class="right"
-            disabled=true}}
+            disabled=false}}
         </div>
-{{else}}
-        <div class="collapsible-header"><i class="material-icons red-text">thumb_down</i>Usuario inactivo
-        {{md-switch checked=model.isActive
-            class="right"
-            disabled=true}}
-        </div>
-{{/if}}
+    </li>
 
-        <div class="collapsible-body card card-panel cyan">
+
+    <li>
+        <div class="collapsible-header"><i class="material-icons {{if model.isAdmin 'green-text'}}">visibility</i>¿Junta o comisión?
+        {{md-switch checked=model.isAdmin
+            class="right"
+            disabled=false}}
+        </div>
+        <div class="collapsible-body card card-panel">
+            <p>Activa este indicador cuando pertenezcas a la Junta o alguna comisión Comisión. Desactívalo cuando dejes de pertenecer a estos grupos. Al modificarlo tu cuenta permanecerá inactiva hasta que sea revisado por la Junta.</p>
+        </div>
+    </li>
+{{/if}}
+    <li>
+        <div class="collapsible-header"><i class="material-icons red-text {{if model.isActive 'green-text'}}">thumb_up</i>¿Estás activo?
+        {{md-switch checked=model.isActive
+            class="right"
+            disabled=true}}
+        </div>
+        <div class="collapsible-body card card-panel">
             <p>Este indicador estará activado cuando aportes los datos necesarios y sean revisados por la Junta o Comisión.</p>
         </div>
 

@@ -1,25 +1,63 @@
-{{#md-navbar name='cooperativApp' class='cyan black-text' homeRoute='index'}}
+{{#md-navbar name='coopApp' class='transparent' homeRoute='index'}}
 <!--a href="#" class="brand-logo"><i class="material-icons right">home</i></a-->
-        <li><a href="/"><img src="favicon.png" class="materialboxed avatar"></a></li>
-        <li><a href="/info" class="black-text">Info<i class="material-icons blue darken-1 white-text hoverable right">info</i></a></li>
-        <li><a href="/users" class="black-text">Usuarios<i class="material-icons orange darken-1 white-text hoverable right">group</i></a></li>
-{{#if session.isAuthenticated}}
-        <li><a href="welcome" class="truncate">
-    {{#if session.currentUser.displayName}}
-        N {{session.currentUser.displayName}}
-    {{else}}
-        E {{session.currentUser.email}}
-    {{/if}}
-  {{#if session.currentUser.photoURL}}
-        <!--img src="{{session.currentUser.photoURL}}" alt="{{session.currentUser.email}}"-->
-  {{else}}
-        <i class="material-icons right">settings</i>
-  {{/if}}
-        </a>
+        <!--li><a href="/"><img src="favicon.png" class="avatar"></a></li>
+        <li>
+          <a href="/info" class="black-text">
+          <div class="chip transparent">
+            <img src="favicon.png" alt="Info">
+            Info
+          </div>
+          <i class="material-icons blue darken-1 white-text hoverable right">info</i>
+          </a>
+        </li-->
+        <li>
+          <a href="/info">Info
+          <i class="material-icons blue-text text-darken-1 right">info</i>
+          </a>
         </li>
-        <li><a href="#" {{action 'signOut'}} class="black-text">Salir<i class="material-icons red darken-4 white-text hoverable right">lock_open</i></a></li>
+        <li>
+          <a href="/users">Usuarios
+          <i class="material-icons orange-text text-darken-1 right">group</i>
+          </a>
+        </li>
+
+
+
+
+
+{{#if session.isAuthenticated}}
+        <li>
+          <a href="/users/{{session.currentUser.uid}}/edit" class="truncate">
+          <div class="chip transparent">
+  {{#if session.currentUser.photoURL}}
+            <img src="{{session.currentUser.photoURL}}" alt="{{session.currentUser.email}}">
+  {{else}}
+            <img src="favicon.png" alt="Identifícate">
+  {{/if}}
+    {{#if session.currentUser.displayName}}
+        {{session.currentUser.displayName}}
+    {{else}}
+        {{session.currentUser.email}}
+    {{/if}}
+          </div>
+          <i class="material-icons green-text text-darken-1 right">settings</i>
+          </a>
+        </li>
+
+        <li>
+          <a href="#" {{action 'signOut'}}>
+            Salir
+          <i class="material-icons red-text text-darken-3 right">lock_open</i>
+          </a>
+        </li>
+
 {{else}}
-        <li><a href="/sign-in" class="black-text">Identifícate<i class="material-icons green darken-1 white-text hoverable right">fingerprint</i></a></li>
+        <li>
+          <a href="/sign-in" >
+            entra
+          <i class="material-icons green-text text-darken-2 right">fingerprint</i>
+          </a>
+        </li>
 {{/if}}
         <!--li><a href="users">Usuarios<i class="material-icons right">person</i></a></li>
         <li><a href="propietarios">Propietarios<i class="material-icons right">person</i></a></li>
@@ -30,45 +68,41 @@
 {{/md-navbar}}
 
 {{#if session.isWorking}}
-<h4 class="card-panel hoverable z-depth-1 center-align grey lighten-5">
+<h1 class="card-panel hoverable z-depth-1 center-align transparent">
 {{md-loader mode="circular" size="large" color="red"}}
-</h4>
+</h1>
 {{else}}
-
 
 
 <div class="fixed-action-btn horizontal">
-  <a class="btn-floating btn-large grey lighten-3">
+  <a class="btn-floating btn-large transparent">
     <i class="material-icons large black-text">menu</i>
   </a>
   <ul>
-  <li><a href="/"><i class="material-icons black-text">home</i></a></li>
+    <li><a href="/" class="btn btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">home</i></a></li>
+
 {{#if session.isAuthenticated}}
-  <li><a href="#" {{action 'signOut'}}><i class="material-icons red-text text-darken-4" title="logout">lock_open</i></a></li>
+    <li><a href="#" {{action 'signOut'}} class="btn btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">lock_open</i></a></li>
 {{else}}
-  <li><a href="sign-in"><i class="material-icons green-text text-darken-1" title="login o registro">fingerprint</i></a></li>
+    <li><a href="sign-in" class="btn btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">fingerprint</i></a></li>
 {{/if}}
   <!--li><a href="users"><i class="material-icons black-text" title="usuarios">group</i></a></li-->
+    <li><a href="#" {{action 'info' 'Cooperativa de Casas baratas para los Ferroviarios del Norte, Ciudad Jardín Castañeda'}} class="btn btn-floating halfway-fab waves-effect waves-light blue"><i class="material-icons">info</i></a></li>
 
-<li>
-    <a href="#" {{action 'info' 'Cooperativa de Casas baratas para los Ferroviarios del Norte, Ciudad Jardín Castañeda'}}>
-        <i class="material-icons blue-text text-darken-4">info</i>
-    </a>
-</li>
   </ul>
 </div>
 
 
 
-<div class='container'>
+
 {{outlet}}
-</div>
+
 {{/if}}
 
 <footer class='page-footer fixed-bottom transparent white-text'>
     {{#md-copyright text='Cooperativa de Casas baratas para los Ferroviarios del Norte, Ciudad Jardín Castañeda'
         startYear=1928
-        class='cyan lighten-5 grey-text text-lighten-1'}}
+        class='transparent blue-grey-text darken-2'}}
     {{/md-copyright}}
 </footer>
 

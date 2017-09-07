@@ -1,107 +1,197 @@
-// Fix for Roboto font path
-$roboto-font-path: '../assets/';
-// Materialize styles
-@import "materialize";
-@import 'components/color';
-$primary-color: color("pink", "lighten-2");
-@import 'components/variables';
-@import 'ember-cli-materialize';
-$primary-color: color("materialize-red", "lighten-2") !default;
-$primary-color-light: false !default;
-$primary-color-dark: false !default;
-@if not $primary-color-light {
-    $primary-color-light: lighten($primary-color, 15%);
-}
-
-@if not $primary-color-dark {
-    $primary-color-dark: darken($primary-color, 15%);
-}
-
-$secondary-color: color("teal", "lighten-1") !default;
-$success-color: color("green", "base") !default;
-$error-color: color("red", "base") !default;
-$link-color: color("light-blue", "darken-1") !default;
-html {
-    font-family: comic-sans, GillSans, Calibri, Trebuchet, sans-serif;
-}
-
-body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
-main {
-    flex: 1 0 auto;
-}
-
-.icon-flag {
-    display: inline-block;
-    height: 20px;
-    width: 30px;
-}
-
-.avatar {
-    display: inline-block;
-    height: 45px;
-    width: 70px;
-}
-
-.container .row {
-    margin: 0 auto;
-}
-
-.card {
-    @extend .hoverable;
-    @extend .grey;
-    @extend .lighten-3;
-    @extend .z-depth-1;
-}
-
-.card .title {
-    @extend .blue;
-    @extend .lighten-3;
-}
-
-
-/*
-a {
-    @extend .btn-floating;
-    @extend .halfway-fab;
-    @extend .waves-effect;
-    @extend .waves-light;
-}
-*/
-
-button {
-    @extend .btn-floating;
-    @extend .halfway-fab;
-    @extend .waves-effect;
-    @extend .waves-light;
-}
-
-.btn-small {
-    height: 12px;
-    line-height: 12px;
-    padding: 0 0.5rem;
-}
-
-.material-icons.md-12 {
-    font-size: 12px;
-}
-
-.material-icons.md-18 {
-    font-size: 18px;
-}
-
-.material-icons.md-24 {
-    font-size: 24px;
-}
-
-.material-icons.md-36 {
-    font-size: 36px;
-}
-
-.material-icons.md-48 {
-    font-size: 48px;
-}
+    // Fix for Roboto font path
+    $roboto-font-path: '../assets/';
+    // Materialize styles
+    @import "materialize";
+    @import 'components/color';
+    $primary-color: color("pink", "lighten-2");
+    @import 'components/variables';
+    @import 'ember-cli-materialize';
+    $primary-color: color("materialize-red", "lighten-2") !default;
+    $primary-color-light: false !default;
+    $primary-color-dark: false !default;
+    @if not $primary-color-light {
+        $primary-color-light: lighten($primary-color, 15%);
+    }
+    
+    @if not $primary-color-dark {
+        $primary-color-dark: darken($primary-color, 15%);
+    }
+    
+    $secondary-color: color("teal", "lighten-1") !default;
+    $success-color: color("green", "base") !default;
+    $error-color: color("red", "base") !default;
+    $link-color: color("light-blue", "darken-1") !default;
+    html {
+        font-family: comic-sans, GillSans, Calibri, Trebuchet, sans-serif;
+    }
+    
+    * {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: -moz-none;
+        -o-user-select: none;
+        user-select: none;
+        font-family: "GothamRnd-Med", GothamRnd-Med, "Arial", Arial, sans-serif;
+        font-size: "10px";
+    }
+    
+     ::-webkit-scrollbar {
+        width: 12px;
+        /*background-color: #00bcd4, #ffbb03, #186dee, #d6412b, #009b58, #ffe303, #209bfb, #f35e3e, #00cb7c, #565654, #74a1ca, #ab3f83, #866b9d;*/
+        background-color: transparent;
+    }
+    
+     ::-webkit-scrollbar-thumb {
+        width: 8px;
+        background-image: -webkit-linear-gradient(bottom, rgb(134, 107, 157), transparent);
+    }
+    
+     ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        border: 0px solid transparent;
+        background-color: transparent;
+    }
+    
+     ::-webkit-scrollbar-button {
+        background-color: transparent;
+    }
+    
+     ::-webkit-scrollbar-corner {
+        background-color: transparent;
+    }
+    
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        /*
+            background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+            background-color: #131313;
+            background-size: 20px 20px;*/
+        /*background: -webkit-radial-gradient(ellipse, white 1%, silver 30%, whitesmoke 70%);*/
+        /*background: radial-gradient(farthest-side at 30% 90%, silver, whitesmoke, transparent);*/
+        background: /*url("Speechless_Logo_2016.png"),*/
+        radial-gradient(rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, .15) 30%, rgba(255, 255, 255, .3) 32%, rgba(255, 255, 255, 0) 33%) 0 0, radial-gradient(rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, .1) 11%, rgba(255, 255, 255, .3) 13%, rgba(255, 255, 255, 0) 14%) 0 0, radial-gradient(rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, .2) 17%, rgba(255, 255, 255, .43) 19%, rgba(255, 255, 255, 0) 20%) 0 110px, radial-gradient(rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, .2) 11%, rgba(255, 255, 255, .4) 13%, rgba(255, 255, 255, 0) 14%) -130px -170px, radial-gradient(rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, .2) 11%, rgba(255, 255, 255, .4) 13%, rgba(255, 255, 255, 0) 14%) 130px 370px, radial-gradient(rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, .1) 11%, rgba(255, 255, 255, .2) 13%, rgba(255, 255, 255, 0) 14%) 0 0, linear-gradient(60deg, transparent 0%, rgba(116, 161, 202, 0.51) 20%, whitesmoke 30%, #D28BF0 40%, transparent 50%, rgba(248, 212, 85, 0.79) 60%, rgba(231, 73, 73, 0.48) 70%, whitesmoke 80%, #E4F99F 90%, transparent 100%);
+        background-size: 470px 470px, 970px 970px, 410px 410px, 610px 610px, 530px 530px, 730px 730px, 100% 100%;
+        background-color: white;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+    .brand-logo {
+        /*    @extend .hoverable;*/
+        @extend .black-text;
+    }
+    
+    .brand-logo:hover {
+        /*    @extend .hoverable;*/
+        background-color: transparent;
+    }
+    
+    .side-nav {
+        /*    @extend .hoverable;*/
+        background-color: rgba(170, 229, 81, 0.73);
+    }
+    
+    .side-nav li a:hover {
+        /*    @extend .hoverable;*/
+        background-color: rgba(170, 229, 81, 0.90);
+    }
+    
+    .brand-logo .btn .btn-flat .btn-large:hover {
+        /*    @extend .hoverable;*/
+        background-color: transparent;
+    }
+    
+    .collapsible-header {
+        /*    @extend .hoverable;*/
+        background-color: transparent;
+    }
+    
+    .collapsible-body {
+        /*    @extend .hoverable;*/
+        background-color: transparent;
+    }
+    
+    a:hover {
+        /*    @extend .hoverable;*/
+        background-color: transparent;
+    }
+    
+    li:hover {
+        /*    @extend .hoverable;*/
+        background-color: transparent;
+    }
+    
+    .btn:hover {
+        /*    @extend .hoverable;*/
+        background-color: transparent;
+    }
+    
+    .navbar-material .nav-wrapper .brand-logo img {
+        height: 64px;
+    }
+    
+    main {
+        flex: 1 0 auto;
+    }
+    
+    .avatar {
+        display: inline-block;
+        height: 45px;
+        width: 70px;
+    }
+    
+    .container .row {
+        margin: 0 auto;
+    }
+    
+    .card {
+        @extend .hoverable;
+        background-color: rgba(238, 248, 235, 0.29);
+    }
+    
+    .card .title {
+        @extend .blue;
+        @extend .lighten-3;
+    }
+    
+    a {
+        @extend .btn-flat;
+        @extend .btn-large;
+        @extend .black-text;
+        @extend .halfway-fab;
+    }
+    
+    button {
+        @extend .btn-floating;
+        @extend .halfway-fab;
+        @extend .waves-effect;
+        @extend .waves-light;
+    }
+    
+    .btn-small {
+        height: 12px;
+        line-height: 12px;
+        padding: 0 0.5rem;
+    }
+    
+    .material-icons.md-12 {
+        font-size: 12px;
+    }
+    
+    .material-icons.md-18 {
+        font-size: 18px;
+    }
+    
+    .material-icons.md-24 {
+        font-size: 24px;
+    }
+    
+    .material-icons.md-36 {
+        font-size: 36px;
+    }
+    
+    .material-icons.md-48 {
+        font-size: 48px;
+    }

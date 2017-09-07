@@ -40,29 +40,34 @@ export default Ember.Controller.extend({
 
                 auth.onAuthStateChanged(function(currentUser) {
                     if (currentUser) {
-                        let user = controller.store.findRecord('user', currentUser.uid).then();
-                        if (currentUser.emailVerified) {
-                            user.set('emailVerified', true);
+                        let user = controller.store.findRecord('user', currentUser.uid).then(() => {
+                            toast(user.displayName, 6000, 'rounded #ffca28 amber lighten-1 black-text');
+                            if (user && currentUser.emailVerified) {
+                                user.emailVerified = true;
+                                /*
+                                                                user.save().then((model) => {
+                                                                    let msg = "Actualizado ";
+                                                                    if (model.name) {
+                                                                        msg += model.name;
+                                                                    }
+                                                                    toast(msg, 6000, 'rounded #ffca28 amber lighten-1 black-text');
+                                                                    this.transitionTo('/users/' + currentUser.uid + '/edit');
+                                                                }, (error) => {
+                                                                    toast(error, 5000, 'rounded red lighten-1 black-text');
+                                                                });*/
 
-                            user.save().then((model) => {
-                                let msg = "Actualizado ";
-                                if (model.name) {
-                                    msg += model.name;
-                                }
-                                toast(msg, 6000, 'rounded #ffca28 amber lighten-1 black-text');
-                                this.transitionTo('/users/' + currentUser.uid + '/edit');
-                            }, (error) => {
-                                toast(error, 5000, 'rounded red lighten-1 black-text');
-                            });
-
-                            controller.transitionToRoute('/users/' + currentUser.uid + '/edit');
-                        } else {
-                            toast('Valida tu correo', 5000, 'rounded #ffca28 amber lighten-1 black-text');
-                            controller.transitionToRoute('/users/' + currentUser.uid + '/edit');
-                        }
+                                controller.transitionToRoute('/users/' + currentUser.uid + '/edit');
+                            } else {
+                                toast('Valida tu correo', 5000, 'rounded #ffca28 amber lighten-1 black-text');
+                                controller.transitionToRoute('/users/' + currentUser.uid + '/edit');
+                            }
+                        }, (error) => {
+                            toast(error, 5000, 'rounded #ffca28 amber lighten-1 black-text');
+                        });
                     }
                 });
-                toast('¡Bienvenid@!', 4000, 'rounded green lighten-1 black-text');
+                controller.transitionToRoute('/users/' + auth.currentUser.uid + '/edit');
+                toast('¡Bienvenid@! ' + auth.currentUser.displayName, 4000, 'rounded green lighten-1 black-text');
 
             }, (error) => {
                 if (error.code === 'auth/user-disabled') {

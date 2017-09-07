@@ -7,12 +7,14 @@ export default Ember.Route.extend({
 
     beforeModel() {
         if (this.get('session.isAuthenticated')) {
-            this.transitionTo('welcome');
+            this.transitionTo('index');
         } else {
-            toast('Este tipo de notas se mostrarán hasta que se hayan registrado más de la mitad de los propietarios.', 4000);
-            toast('Si no se van solas...', 6000);
-            toast('...échala a un lado...');
-            toast('...para que desaparezca.', 10000);
+            /*
+            					toast('Este tipo de notas se mostrarán hasta que se hayan registrado más de la mitad de los propietarios.', 4000);
+                        toast('Si no se van solas...', 6000);
+                        toast('...échala a un lado...');
+            						toast('...para que desaparezca.', 10000);
+            						*/
         }
     },
     model() {

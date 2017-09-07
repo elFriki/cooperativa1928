@@ -1,0 +1,208 @@
+<html>
+
+<style type="text/css">
+    * {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: -moz-none;
+        -o-user-select: none;
+        user-select: none;
+        font-family: "GothamRnd-Med", GothamRnd-Med, "Arial", Arial, sans-serif;
+        font-size: "10px";
+    }
+    
+    #topleft {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+    }
+    
+    #topright {
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: block;
+    }
+    
+    #commands {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: rgba(50, 50, 50, 0.6);
+        display: none;
+    }
+    
+    #commandText {
+        color: yellow;
+        text-align: center;
+    }
+    
+    #categoryForm {
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: block;
+    }
+    
+    #body {
+        background: #FFFFFF;
+        overflow: hidden;
+    }
+    
+    #canvas-container {
+        position: relative;
+        left: 0;
+        top: 0;
+    }
+    
+    #canvastable {
+        margin-left: 0px;
+        margin-right: auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        text-align: left;
+    }
+    
+    #currentCategory {
+        text-align: left;
+    }
+    
+    @font-face {
+        font-family: 'GothamRnd-Medium';
+        src: url('GothamRnd-Medium.otf');
+    }
+    
+    @font-face {
+        font-family: 'GothamRnd-Light';
+        font-weight: 'lighter';
+        src: url('GothamRnd-Medium.otf');
+    }
+    
+    h2 {
+        font-size: "50px";
+        font-family: "GothamRnd-Medium", Arial, sans-serif;
+        color: #3F3F3F;
+    }
+    
+    canvas {
+        display: inline;
+    }
+</style>
+
+<body id="body" onresize="resizeCanvas()">
+    <audio id="pegTap" src="PegTap.mp3" hidden="true"></audio>
+    <audio id="gong" src="Gong.mp3" hidden="true"></audio>
+    <div id="current-category-container" style="margin-top:50px; width:100%; height:50px; font-family:GothamRnd-Medium">
+        <canvas id="categoryCanvas" style="width:100%; height:90%">
+        </canvas>
+    </div>
+    <div id="canvas-container" style="width:100%">
+        <canvas id="myCanvas">
+        </canvas>
+    </div>
+    <div id="invisiblelogo" style="visibility:hidden">
+        <img src="ioLogoTrans.png" style="padding-left:10px; padding-top:10px" id="ioLogoTrans" />
+    </div>
+
+    <div id="commands">
+        <table id="commandText">
+            <tr>
+                <td><strong>Command</strong></td>
+                <td><strong>Description</strong></td>
+            </tr>
+            <td>---------------------------------------------</td>
+            <td>---------------------------------------------</td>
+            <tr>
+            </tr>
+            <tr>
+                <td>?</td>
+                <td>Help: Toggle this help screen on/off</td>
+            </tr>
+            <tr>
+                <td>d</td>
+                <td>Debug: output logging to javascript console</td>
+            </tr>
+            <tr>
+                <td>Up/Right Arrow</td>
+                <td>Spin: clockwise</td>
+            </tr>
+            <tr>
+                <td>Down/Left Arrow</td>
+                <td>Spin: counter-clockwise</td>
+            </tr>
+            <tr>
+                <td>Mouse Click on Center</td>
+                <td>Spin: clockwise</td>
+            </tr>
+            <tr>
+                <td>Mouse Click on Slice</td>
+                <td>Stop Spinning</td>
+            </tr>
+            <tr>
+                <td>Mouse cmd-click or shift-click on slide</td>
+                <td>Delete Category Slice</td>
+            </tr>
+        </table>
+    </div>
+    <div id="topright" style="font-size:12px;">
+        <img src="Speechless_Logo_2016.png" width="150" onclick="toggleInputVisibility()" style="padding-right:10px; padding-top:10px;" />
+        <p></p>
+        <div id="categoryForm" style="position:relative; display:none">
+            <input type="text" id="newCategory" placeholder="categoría" />
+            <button onClick="createCategory()">+</button><br/>
+            <input type="text" id="newCategoryAbbreviation" placeholder="nombre corto" />
+            <button style="font-size:15px;" onClick="formSubmit(document.categoryListForm)">GO!</button><br/>
+            <form name="categoryListForm" id="categoryListForm">
+                <input type="checkbox" value="Lanzamiento App" id="appLaunch" checked/>
+                <label for="appLaunch">Lanzamiento de App</label><br/>
+                <input type="checkbox" value="Lanzamiento de nuevo producto de Apple" name="Producto Apple" id="appleProduct" checked/>
+                <label for="appleProduct">Lanzamiento de nuevo producto de Apple</label><br/>
+                <input type="checkbox" value="Seminario citas" id="datingSeminar" checked/>
+                <label for="datingSeminar">Seminario de citas</label><br/>
+                <input type="checkbox" value="Elogio" id="eulogy" checked/>
+                <label for="eulogy">Elogio</label><br/>
+                <input type="checkbox" value="Primer contacto" id="firstContact" checked/>
+                <label for="firstContact">Primer contacto</label><br/>
+                <input type="checkbox" value="Infomercial" id="infomercial" checked/>
+                <label for="infomercial">Infomercial</label><br/>
+                <input type="checkbox" value="Premio a toda una carrera" name="Premio carrera" id="lifetime" checked/>
+                <label for="lifetime">Premio a toda una carrera</label><br/>
+                <input type="checkbox" value="Trailer película" id="movie" checked/>
+                <label for="movie">Trailer de película</label><br/>
+                <input type="checkbox" value="Orientación nueva carrera" name="Orientación" id="orientation" checked/>
+                <label for="orientation">Orientación nueva carrera</label><br/>
+                <input type="checkbox" value="Lanzamiento producto" id="product" checked/>
+                <label for="product">Lanzamiento de producto</label><br/>
+                <input type="checkbox" value="Disculpa p&uacute;blica" id="apology" checked/>
+                <label for="apology">Disculpa pública</label><br/>
+                <input type="checkbox" value="Informe trimestral" id="quarterly" checked/>
+                <label for="quarterly">Informe trimestral</label><br/>
+                <input type="checkbox" value="Descubrimiento científico" id="discovery" checked/>
+                <label for="discovery">Descubrimiento científico</label><br/>
+                <input type="checkbox" value="Seminario de autoayuda" name="Autoayuda" id="help" checked/>
+                <label for="help">Seminario de autoayuda</label><br/>
+                <input type="checkbox" value="Sermón" id="sermon" checked/>
+                <label for="sermon">Sermon</label><br/>
+                <input type="checkbox" value="Seminario sobre acoso sexual" name="Acoso sexual" id="sexualHarassment" checked/>
+                <label for="sexualHarassment">Seminario sobre acoso sexual</label><br/>
+                <input type="checkbox" value="Charla Startup" id="startup" checked/>
+                <label for="startup">Charla Startup</label><br/>
+                <input type="checkbox" value="Charla TEDx" id="ted" checked/>
+                <label for="ted">Charla TEDx</label><br/>
+                <input type="checkbox" value="Charla videojuego" name="Videojuego" id="videoGame" checked/>
+                <label for="videoGame">Charla videojuego</label><br/>
+                <input type="checkbox" value="Discurso de boda" id="wedding" checked/>
+                <label for="wedding">Discurso de boda</label><br/>
+                <input type="checkbox" value="Público" id="audience" checked/>
+                <label for="audience">El Público elige</label><br/>
+                <input type="checkbox" value="Presentador" id="presenter" checked/>
+                <label for="presenter">El presentador elige</label><br/>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

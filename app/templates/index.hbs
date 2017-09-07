@@ -15,23 +15,20 @@
 
     
   <div class="col s12 m10 l10">
-{{#md-card title="cooperativApp" activator=true id="card-reveal" class="white"}}
+{{#md-card title="cooperativApp" activator=true id="card-reveal" class="transparent"}}
 
     {{#md-card-content}}
     <div class="card-image waves-effect waves-block waves-light">
+    <span class="">{{moment-format (now)}}</span>
       <img class="activator" src="favicon.png">
-    <span class="card-title cyan-text">{{moment-format (now)}}</span>
     </div>
 
 <!--span class="card-title activator grey-text text-darken-4">{{moment-format (now)}}<i class="material-icons right">more_vert</i></span-->
     <h6 class="right"><i>Entre todos es más fácil</i></h6>
 
-{{#if session.isAuthenticated}}
-	<p>Desde el botón de ajustes <i class="material-icons md-12" title="Ajustes de usuario">settings</i> puedes añadir y modificar la información de tu usuario.</p>
-{{/if}}
     {{#md-card-action}}
 {{#if session.isAuthenticated}}
-        <a href="welcome" class='transparent'><i class="material-icons black-text" title="Ajustes de usuario">settings</i></a>
+        <a href="/users/{{session.currentUser.uid}}/edit" class='btn btn-floating pulse green'><i class="material-icons white-text" title="Ajustes de usuario">settings</i></a>
 <!--        {{#link-to 'welcome' user.uid}}<i class="material-icons">settings</i>{{/link-to}}-->
 
 {{else}}
@@ -47,7 +44,7 @@
     {{/md-card-action}}
     {{/md-card-content}}
 
-    {{#md-card-reveal class="cyan white-text"}}
+    {{#md-card-reveal class="grey darken-2 white-text"}}
     <!--p>Bienvenid@ a la web de la Cooperativa de Casas baratas para los Ferroviarios del Norte, Ciudad Jardín Castañeda. </p-->
     <p>Bienvenid@ a la cooperativApp.</p>
     <p>Esta web pretende ser una herramienta que sirva para agilizar la comunicación entre nosotros y que las pequeñas gestiones, que son necesarias para que esto funcione, no nos lleven media vida. </p>
@@ -78,7 +75,7 @@ varias
 -->
 
 {{#if session.isAuthenticated}}
-	<p>Desde el botón de ajustes puedes añadir y modificar la información de tu usuario.</p>
+	<p>Desde el botón de ajustes <i class="material-icons md-12" title="Ajustes de usuario">settings</i> puedes añadir y modificar la información de tu usuario.</p>
 {{else}}
 	<p>Identifícate con tu correo electrónico y una clave. La primera vez que lo hagas quedarás registrado y, cuando valides que la dirección de correo es correcta, podrás aportar el resto de información necesaria.</p>
 {{/if}}

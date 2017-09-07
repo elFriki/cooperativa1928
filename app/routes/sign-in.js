@@ -10,10 +10,10 @@ export default Ember.Route.extend({
             toast(this.get('session.currentUser.uid'));
             this.transitionTo('/users/' + this.get('session.currentUser.uid') + '/edit');
         } else {
-            toast('Si no has entrado', 3000);
-            toast('nunca', 2000);
-            toast('pon un correo electrónico', 6000);
-            toast('y una clave', 5000);
+            //toast('Si no has entrado', 3000);
+            //toast('nunca', 2000);
+            //toast('pon un correo electrónico', 6000);
+            //toast('y una clave', 5000);
         }
     },
 

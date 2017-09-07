@@ -54,11 +54,11 @@ export default Ember.Route.extend({
                     }).then(() => {
                         this.controller.set('email', null);
                         this.controller.set('password', null);
-                        this.controller.transitionTo('welcome');
+                        this.controller.transitionTo('index');
                     }, (error) => {
                         toast(error, 5000, 'rounded #ffca28 amber lighten-1 black-text');
                     });
-                    this.transitionTo('welcome');
+                    this.transitionTo('index');
                     auth.onAuthStateChanged(function(user) {
                         if (user.emailVerified) {
                             toast("El email está validado", 5000, 'rounded #ffca28 amber lighten-1 black-text');

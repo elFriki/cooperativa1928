@@ -4,14 +4,14 @@
     <form>
     <div class="row blue-text text-darken-4">
         <div class="input-field col s12 blue-text text-darken-4">
-          <i class="material-icons prefix blue-text text-darken-4">email</i>
+          <i class="material-icons prefix black-text">email</i>
 {{input type='email' id='iEmail' class='validate' value=email }}
           <label class="{{if email 'active'}}" for="iEmail">Correo electrónico</label>
         </div>
       </div>
       <div class="row blue-text text-darken-4">
         <div class="input-field col s12 blue-text text-darken-4">
-          <i class="material-icons prefix blue-text text-darken-4">vpn_key</i>
+          <i class="material-icons prefix black-text">vpn_key</i>
 {{input type='password' id='iPassword' class='validate' value=password }}
           <label class="{{if password 'active'}}" for="iPassword">Clave</label>
         </div>
@@ -23,16 +23,10 @@
 {{else}}
 {{#if email}}
 {{#if password}}
-    <button class='transparent' {{action 'signIn' 'password'}} title="login">
-       <i class="material-icons  green-text text-darken-1">fingerprint</i> 
-    </button>
-    <button class="right red" {{action 'sendPasswordReset'}} title="Envía el enlace a {{email}} para redefinir la clave">
-        <i class="material-icons white-text">vpn_key</i>
-    </button>
+    <a href="#" {{action 'signIn' 'password'}} class='btn btn-floating pulse green'><i class="material-icons white-text" title="Identifícate">fingerprint</i></a>
+    <a href="#" {{action 'sendPasswordReset'}} class='btn btn-floating pulse red right'><i class="material-icons white-text" title="Envía el enlace a {{email}} para redefinir la clave">vpn_key</i></a>
 {{else}}
-    <button class="right red" {{action 'sendPasswordReset'}} title="Si no recuerdas la clave, rellena el correo y la clave y dale al botón" disabled>
-        <i class="material-icons white-text">vpn_key</i>
-    </button>
+    <a href="#" {{action 'sendPasswordReset'}} class='btn btn-floating pulse amber right'><i class="material-icons white-text" title="Si no recuerdas la clave, rellena el correo y la clave y dale al botón" disabled>vpn_key</i></a>
 
 {{/if}}
 {{/if}}
